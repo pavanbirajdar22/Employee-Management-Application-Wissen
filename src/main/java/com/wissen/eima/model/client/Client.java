@@ -31,7 +31,7 @@ public class Client implements Serializable {
 
 	//bi-directional many-to-one association to Employee_Client
 	@OneToMany(mappedBy="client")
-	private List<EmployeeClient> employeeClients;
+	private List<EmployeeClient> clientEmployees;
 
 	//bi-directional many-to-one association to Project
 	@OneToMany(mappedBy="client")
@@ -72,26 +72,26 @@ public class Client implements Serializable {
 		this.employees = employees;
 	}
 
-	public List<EmployeeClient> getEmployeeClients() {
-		return this.employeeClients;
+	public List<EmployeeClient> getClientEmployees() {
+		return this.clientEmployees;
 	}
 
-	public void setEmployeeClients(List<EmployeeClient> employeeClients) {
-		this.employeeClients = employeeClients;
+	public void setClientEmployees(List<EmployeeClient> employeeClients) {
+		this.clientEmployees = employeeClients;
 	}
 
-	public EmployeeClient addEmployeeClient(EmployeeClient employeeClient) {
-		getEmployeeClients().add(employeeClient);
-		employeeClient.setClient(this);
+	public EmployeeClient addClientEmployees(EmployeeClient clientEmployees) {
+		getClientEmployees().add(clientEmployees);
+		clientEmployees.setClient(this);
 
-		return employeeClient;
+		return clientEmployees;
 	}
 
-	public EmployeeClient removeEmployeeClient(EmployeeClient employeeClient) {
-		getEmployeeClients().remove(employeeClient);
-		employeeClient.setClient(null);
+	public EmployeeClient removeClientEmployees(EmployeeClient clientEmployees) {
+		getClientEmployees().remove(clientEmployees);
+		clientEmployees.setClient(null);
 
-		return employeeClient;
+		return clientEmployees;
 	}
 
 	public List<Project> getProjects() {

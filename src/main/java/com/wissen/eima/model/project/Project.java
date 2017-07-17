@@ -40,7 +40,7 @@ public class Project implements Serializable {
 
 	//bi-directional many-to-one association to Employee_Project
 	@OneToMany(mappedBy="project")
-	private List<EmployeeProject> employeeProjects;
+	private List<EmployeeProject> team;
 
 	//bi-directional many-to-one association to Client
 	@ManyToOne(fetch=FetchType.LAZY)
@@ -95,26 +95,26 @@ public class Project implements Serializable {
 		this.employees = employees;
 	}
 
-	public List<EmployeeProject> getEmployeeProjects() {
-		return this.employeeProjects;
+	public List<EmployeeProject> getTeam() {
+		return this.team;
 	}
 
-	public void setEmployeeProjects(List<EmployeeProject> employeeProjects) {
-		this.employeeProjects = employeeProjects;
+	public void setTeam(List<EmployeeProject> team) {
+		this.team = team;
 	}
 
-	public EmployeeProject addEmployeeProject(EmployeeProject employeeProject) {
-		getEmployeeProjects().add(employeeProject);
-		employeeProject.setProject(this);
+	public EmployeeProject addTeam(EmployeeProject team) {
+		getTeam().add(team);
+		team.setProject(this);
 
-		return employeeProject;
+		return team;
 	}
 
-	public EmployeeProject removeEmployeeProject(EmployeeProject employeeProject) {
-		getEmployeeProjects().remove(employeeProject);
-		employeeProject.setProject(null);
+	public EmployeeProject removeTeam(EmployeeProject team) {
+		getTeam().remove(team);
+		team.setProject(null);
 
-		return employeeProject;
+		return team;
 	}
 
 	public Client getClient() {

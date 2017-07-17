@@ -70,7 +70,7 @@ public class Employee implements Serializable {
 	private Department department;
 
 	// bi-directional many-to-one association to Employee
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "mgr_eid")
 	private Employee manager;
 
@@ -225,30 +225,30 @@ public class Employee implements Serializable {
 		return this.manager;
 	}
 
-	public void setEmployee(Employee employee) {
-		this.manager = employee;
+	public void setManager(Employee manager) {
+		this.manager = manager;
 	}
 
 	public List<Employee> getStaff() {
 		return this.staff;
 	}
 
-	public void setEmployees(List<Employee> employees) {
-		this.staff = employees;
+	public void setStaff(List<Employee> staff) {
+		this.staff = staff;
 	}
 
-	public Employee addEmployee(Employee employee) {
-		getStaff().add(employee);
-		employee.setEmployee(this);
+	public Employee addManager(Employee manager) {
+		getStaff().add(manager);
+		manager.setManager(this);
 
-		return employee;
+		return manager;
 	}
 
-	public Employee removeEmployee(Employee employee) {
-		getStaff().remove(employee);
-		employee.setEmployee(null);
+	public Employee removeManager(Employee manager) {
+		getStaff().remove(manager);
+		manager.setManager(null);
 
-		return employee;
+		return manager;
 	}
 
 	public List<Project> getProjects() {
