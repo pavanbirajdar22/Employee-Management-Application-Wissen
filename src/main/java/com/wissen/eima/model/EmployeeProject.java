@@ -31,12 +31,12 @@ public class EmployeeProject implements Serializable {
 	private Date startDate;
 
 	// bi-directional many-to-one association to Employee
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "eid", insertable = false, updatable = false)
 	private Employee employee;
 
 	// bi-directional many-to-one association to Project
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "pid", insertable = false, updatable = false)
 	private Project project;
 

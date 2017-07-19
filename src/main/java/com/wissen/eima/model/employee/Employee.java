@@ -65,7 +65,7 @@ public class Employee implements Serializable {
 	private List<Client> clients;
 
 	// bi-directional many-to-one association to Department
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "dept_id")
 	private Department department;
 
@@ -97,7 +97,7 @@ public class Employee implements Serializable {
 	private List<History> histories;
 
 	// bi-directional one-to-one association to User
-	@OneToOne(mappedBy = "employee", fetch = FetchType.LAZY)
+	@OneToOne(mappedBy = "employee", fetch = FetchType.EAGER)
 	private User user;
 
 	public Employee() {
@@ -132,7 +132,7 @@ public class Employee implements Serializable {
 	}
 
 	public void setGender(int gender) {
-		this.gender = Gender.valueOf(String.valueOf(gender));
+		this.gender = Gender.values()[gender];
 	}
 
 	public Date getJoiningDate() {

@@ -31,12 +31,12 @@ public class EmployeeClient implements Serializable {
 	private Date startDate;
 
 	// bi-directional many-to-one association to Client
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "cid", insertable = false, updatable = false)
 	private Client client;
 
 	// bi-directional many-to-one association to Employee
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "eid", insertable = false, updatable = false)
 	private Employee employee;
 

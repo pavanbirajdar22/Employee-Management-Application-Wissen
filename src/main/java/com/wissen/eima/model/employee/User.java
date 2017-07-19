@@ -39,7 +39,7 @@ public class User implements Serializable {
 	private String password;
 
 	//bi-directional one-to-one association to Employee
-	@OneToOne(fetch=FetchType.LAZY)
+	@OneToOne(fetch=FetchType.EAGER)
 	@JoinColumn(name="eid")
 	private Employee employee;
 

@@ -7,6 +7,6 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class EimaApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(EimaApplication.class, args);
+		SpringApplication.run(EimaApplication.class, args);	
 	}
 }

@@ -20,12 +20,12 @@ public class GroupPermission implements Serializable {
 	private Date addedOnDate;
 
 	// bi-directional many-to-one association to Group
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "gid", insertable = false, updatable = false)
 	private Group group;
 
 	// bi-directional many-to-one association to Permission
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "permission_id", insertable = false, updatable = false)
 	private Permission permission;
 

@@ -31,7 +31,7 @@ public class History implements Serializable {
 	private Date timestamp;
 
 	//bi-directional many-to-one association to Employee
-	@ManyToOne(fetch=FetchType.LAZY)
+	@ManyToOne(fetch=FetchType.EAGER)
 	@JoinColumn(name="eid")
 	private Employee employee;
 
