@@ -4,6 +4,7 @@ import java.io.Serializable;
 import javax.persistence.*;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.ObjectIdGenerator;
@@ -55,48 +56,59 @@ public class Employee implements Serializable {
 	private double salary;
 
 	// bi-directional many-to-one association to Address
+	@JsonIgnoreProperties(value="employee")
 	@OneToMany(mappedBy = "employee")
 	private List<Address> addresses;
 
 	// bi-directional many-to-many association to Client
+	@JsonIgnoreProperties({"employees","projects","clientEmployees"})
 	@ManyToMany
 	@JoinTable(name = "Employee_Client", joinColumns = { @JoinColumn(name = "eid") }, inverseJoinColumns = {
 			@JoinColumn(name = "cid") })
 	private List<Client> clients;
 
 	// bi-directional many-to-one association to Department
+	@JsonIgnoreProperties({"employees","projects"})
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "dept_id")
 	private Department department;
 
-	// bi-directional many-to-one association to Employee
+	// bi-directional many-to-one association to Employeel
+
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "mgr_eid")
+	@JsonIgnore
 	private Employee manager;
 
 	// bi-directional many-to-one association to Employee
 	@OneToMany(mappedBy = "manager")
+	@JsonIgnore
 	private List<Employee> staff;
 
 	// bi-directional many-to-many association to Project
+	@JsonIgnoreProperties({"team","employeeProjects","client","department"})
 	@ManyToMany
 	@JoinTable(name = "Employee_Project", joinColumns = { @JoinColumn(name = "eid") }, inverseJoinColumns = {
 			@JoinColumn(name = "pid") })
 	private List<Project> projects;
 
 	// bi-directional many-to-one association to Employee_Client
+	@JsonIgnoreProperties({"employee","client"})
 	@OneToMany(mappedBy = "employee")
 	private List<EmployeeClient> employeeClients;
 
 	// bi-directional many-to-one association to Employee_Project
+	@JsonIgnoreProperties({"employee","project"})
 	@OneToMany(mappedBy = "employee")
 	private List<EmployeeProject> employeeProjects;
 
 	// bi-directional many-to-one association to History
+	@JsonIgnoreProperties(value="employee")
 	@OneToMany(mappedBy = "employee")
 	private List<History> histories;
 
 	// bi-directional one-to-one association to User
+	@JsonIgnoreProperties({"employee","group"})
 	@OneToOne(mappedBy = "employee", fetch = FetchType.EAGER)
 	private User user;
 

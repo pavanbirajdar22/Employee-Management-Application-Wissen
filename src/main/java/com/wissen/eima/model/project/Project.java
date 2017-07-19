@@ -11,13 +11,12 @@ import com.wissen.eima.model.employee.Employee;
 import java.util.Date;
 import java.util.List;
 
-
 /**
  * The persistent class for the Project database table.
  * 
  */
 @Entity
-@NamedQuery(name="Project.findAll", query="SELECT p FROM Project p")
+@NamedQuery(name = "Project.findAll", query = "SELECT p FROM Project p")
 public class Project implements Serializable {
 	private static final long serialVersionUID = 1L;
 
@@ -25,31 +24,31 @@ public class Project implements Serializable {
 	private int pid;
 
 	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name="end_date")
+	@Column(name = "end_date")
 	private Date endDate;
 
 	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name="start_date")
+	@Column(name = "start_date")
 	private Date startDate;
 
 	private String title;
 
-	//bi-directional many-to-many association to Employee
-	@ManyToMany(mappedBy="projects")
-	private List<Employee> employees;
+	// bi-directional many-to-many association to Employee
+	@ManyToMany(mappedBy = "projects")
+	private List<Employee> team;
 
-	//bi-directional many-to-one association to Employee_Project
-	@OneToMany(mappedBy="project")
-	private List<EmployeeProject> team;
+	// bi-directional many-to-one association to Employee_Project
+	@OneToMany(mappedBy = "project")
+	private List<EmployeeProject> employeeProjects;
 
-	//bi-directional many-to-one association to Client
-	@ManyToOne(fetch=FetchType.EAGER)
-	@JoinColumn(name="cid")
+	// bi-directional many-to-one association to Client
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "cid")
 	private Client client;
 
-	//bi-directional many-to-one association to Department
-	@ManyToOne(fetch=FetchType.EAGER)
-	@JoinColumn(name="dept_id")
+	// bi-directional many-to-one association to Department
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "dept_id")
 	private Department department;
 
 	public Project() {
@@ -87,34 +86,34 @@ public class Project implements Serializable {
 		this.title = title;
 	}
 
-	public List<Employee> getEmployees() {
-		return this.employees;
-	}
-
-	public void setEmployees(List<Employee> employees) {
-		this.employees = employees;
-	}
-
-	public List<EmployeeProject> getTeam() {
+	public List<Employee> getTeam() {
 		return this.team;
 	}
 
-	public void setTeam(List<EmployeeProject> team) {
+	public void setTeam(List<Employee> team) {
 		this.team = team;
 	}
 
-	public EmployeeProject addTeam(EmployeeProject team) {
-		getTeam().add(team);
-		team.setProject(this);
-
-		return team;
+	public List<EmployeeProject> getEmployeeProjects() {
+		return this.employeeProjects;
 	}
 
-	public EmployeeProject removeTeam(EmployeeProject team) {
-		getTeam().remove(team);
-		team.setProject(null);
+	public void setEmployeeProjects(List<EmployeeProject> employeeProjects) {
+		this.employeeProjects = employeeProjects;
+	}
 
-		return team;
+	public EmployeeProject addEmployeeProject(EmployeeProject employeeProject) {
+		getEmployeeProjects().add(employeeProject);
+		employeeProject.setProject(this);
+
+		return employeeProject;
+	}
+
+	public EmployeeProject removeEmployeeProject(EmployeeProject employeeProject) {
+		getEmployeeProjects().remove(employeeProject);
+		employeeProject.setProject(null);
+
+		return employeeProject;
 	}
 
 	public Client getClient() {
