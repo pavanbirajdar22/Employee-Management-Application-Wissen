@@ -11,4 +11,8 @@ public interface EmployeeService {
 
 	List<Employee> getEmployeesLeft(final Date startDate, final Date endDate);
 
+	List<Employee> getEmployeesByManagerId(final int mgrId);
+
+	List<Employee> getHistoryByEmployeeId(final int empId);
+
 }
