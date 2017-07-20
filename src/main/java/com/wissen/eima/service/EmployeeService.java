@@ -7,12 +7,10 @@ import com.wissen.eima.model.employee.Employee;
 
 public interface EmployeeService {
 
-	List<Employee> getEmployeesHired(final Date startDate, final Date endDate);
+	List<Employee> getEmployeesHired(final Date fromDate, final Date toDate);
 
-	List<Employee> getEmployeesLeft(final Date startDate, final Date endDate);
+	List<Employee> getEmployeesLeft(final Date fromDate, final Date toDate);
 
-	List<Employee> getEmployeesByManagerId(final int mgrId);
-
-	List<Employee> getHistoryByEmployeeId(final int empId);
+	Employee getEmployeeByFirstName(String firstName);
 
 }

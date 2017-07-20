@@ -7,6 +7,6 @@ import com.wissen.eima.model.client.Client;
 
 public interface ClientService {
 
-	List<Client> getClientsAdded(final Date startDate, final Date endDate);
+	List<Client> getClientsAdded(final Date fromDate, final Date toDate);
 
 }

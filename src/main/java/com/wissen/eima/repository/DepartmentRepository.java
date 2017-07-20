@@ -5,8 +5,7 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 
 import com.wissen.eima.model.department.Department;
 
-
-@CrossOrigin(origins="*")
+@CrossOrigin(origins = "*")
 public interface DepartmentRepository extends JpaRepository<Department, Integer> {
-
+	Department findByDeptName(final String name);
 }

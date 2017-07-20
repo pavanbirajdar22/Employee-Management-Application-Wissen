@@ -1,13 +1,13 @@
 package com.wissen.eima.service;
 
+import java.util.List;
+
+import com.wissen.eima.model.permission.Permission;
+
 public interface PermissionService {
 
-	boolean grantPermissionToUser(final int userId, final String permissionType);
+	boolean changePermissionsForUser(final Permission permission);
 
-	boolean revokePermissionToUser(final int userId, final String permissionType);
-
-	boolean grantPermissionToUsers(final int[] userIds, final String permissionType);
-
-	boolean revokePermissionToUsers(final int[] userIds, final String permissionType);
+	boolean changePermissionForUsers(final List<Permission> permissions);
 
 }

@@ -1,15 +1,26 @@
 package com.wissen.eima.model.project;
 
 import java.io.Serializable;
-import javax.persistence.*;
+import java.util.Date;
+import java.util.List;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
+import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.wissen.eima.model.EmployeeProject;
 import com.wissen.eima.model.client.Client;
 import com.wissen.eima.model.department.Department;
 import com.wissen.eima.model.employee.Employee;
-
-import java.util.Date;
-import java.util.List;
 
 /**
  * The persistent class for the Project database table.
@@ -34,19 +45,24 @@ public class Project implements Serializable {
 	private String title;
 
 	// bi-directional many-to-many association to Employee
+	@JsonIgnoreProperties({ "addresses", "staff", "manager", "projects", "clients", "employeeClients",
+			"employeeProjects", "department", "histories", "user" })
 	@ManyToMany(mappedBy = "projects")
 	private List<Employee> team;
 
 	// bi-directional many-to-one association to Employee_Project
+	@JsonIgnoreProperties({ "employee", "project" })
 	@OneToMany(mappedBy = "project")
 	private List<EmployeeProject> employeeProjects;
 
 	// bi-directional many-to-one association to Client
+	@JsonIgnoreProperties({ "employees", "projects", "clientEmployees" })
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "cid")
 	private Client client;
 
 	// bi-directional many-to-one association to Department
+	@JsonIgnoreProperties({ "employees", "projects" })
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "dept_id")
 	private Department department;

@@ -1,52 +1,70 @@
 package com.wissen.eima.model.employee;
 
 import java.io.Serializable;
-import javax.persistence.*;
-
-import com.wissen.eima.model.permission.Group;
-
 import java.util.Date;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.NamedQuery;
+import javax.persistence.OneToOne;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.wissen.eima.model.permission.Permission;
 
 /**
  * The persistent class for the User database table.
  * 
  */
 @Entity
-@NamedQuery(name="User.findAll", query="SELECT u FROM User u")
+@NamedQuery(name = "User.findAll", query = "SELECT u FROM User u")
 public class User implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
 	private int eid;
 
-	@Column(name="address_visible")
+	@Column(name = "address_visible")
 	private int addressVisible;
 
-	@Column(name="dob_visible")
+	@Column(name = "dob_visible")
 	private int dobVisible;
 
-	@Column(name="email_id")
+	@Column(name = "email_id")
 	private String emailId;
 
-	@Column(name="gender_visible")
+	@Column(name = "gender_visible")
 	private int genderVisible;
 
 	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name="last_login")
+	@Column(name = "last_login")
 	private Date lastLogin;
 
 	private String password;
 
-	//bi-directional one-to-one association to Employee
-	@OneToOne(fetch=FetchType.EAGER)
-	@JoinColumn(name="eid")
+	// bi-directional one-to-one association to Employee
+	@JsonIgnoreProperties({ "addresses", "staff", "manager", "projects", "clients", "employeeClients",
+			"employeeProjects", "department", "histories", "user" })
+	@OneToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "eid")
 	private Employee employee;
 
-	//bi-directional many-to-one association to Group
-	@ManyToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="gid")
-	private Group group;
+	// bi-directional one-to-one association to Permission
+	@JsonIgnoreProperties("user")
+	@OneToOne(mappedBy = "user")
+	private Permission permission;
+
+	public Permission getPermission() {
+		return permission;
+	}
+
+	public void setPermission(Permission permission) {
+		this.permission = permission;
+	}
 
 	public User() {
 	}
@@ -113,14 +131,6 @@ public class User implements Serializable {
 
 	public void setEmployee(Employee employee) {
 		this.employee = employee;
-	}
-
-	public Group getGroup() {
-		return this.group;
-	}
-
-	public void setGroup(Group group) {
-		this.group = group;
 	}
 
 }

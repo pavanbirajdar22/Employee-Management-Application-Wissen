@@ -1,12 +1,20 @@
 package com.wissen.eima.model;
 
 import java.io.Serializable;
-import javax.persistence.*;
+import java.util.Date;
+
+import javax.persistence.Column;
+import javax.persistence.EmbeddedId;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 import com.wissen.eima.model.client.Client;
 import com.wissen.eima.model.employee.Employee;
-
-import java.util.Date;
 
 /**
  * The persistent class for the Employee_Client database table.

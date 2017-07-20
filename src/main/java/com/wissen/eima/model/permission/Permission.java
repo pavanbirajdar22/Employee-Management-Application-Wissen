@@ -1,80 +1,160 @@
 package com.wissen.eima.model.permission;
 
 import java.io.Serializable;
-import javax.persistence.*;
-import java.util.List;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.wissen.eima.model.employee.User;
 
 /**
  * The persistent class for the Permission database table.
  * 
  */
 @Entity
-@NamedQuery(name="Permission.findAll", query="SELECT p FROM Permission p")
 public class Permission implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@Column(name="permission_id")
-	private int permissionId;
+	private int eid;
 
-	private String type;
+	@Column(name = "add_client")
+	private int addClient;
 
-	//bi-directional many-to-many association to Group
-	@ManyToMany(mappedBy="permissions")
-	private List<Group> groups;
+	@Column(name = "add_department")
+	private int addDepartment;
 
-	//bi-directional many-to-one association to Group_Permission
-	@OneToMany(mappedBy="permission")
-	private List<GroupPermission> groupPermissions;
+	@Column(name = "add_employee")
+	private int addEmployee;
+
+	@Column(name = "add_project")
+	private int addProject;
+
+	@Column(name = "delete_user")
+	private int deleteUser;
+
+	@Column(name = "edit_client")
+	private int editClient;
+
+	@Column(name = "edit_department")
+	private int editDepartment;
+
+	@Column(name = "edit_employee")
+	private int editEmployee;
+
+	@Column(name = "edit_other_employee")
+	private int editOtherEmployee;
+
+	@Column(name = "edit_project")
+	private int editProject;
+
+	// bi-directional one-to-one association to User
+	@JsonIgnoreProperties("permission")
+	@OneToOne
+	@JoinColumn(name = "eid")
+	private User user;
 
 	public Permission() {
 	}
 
-	public int getPermissionId() {
-		return this.permissionId;
+	public int getEid() {
+		return this.eid;
 	}
 
-	public void setPermissionId(int permissionId) {
-		this.permissionId = permissionId;
+	public void setEid(int eid) {
+		this.eid = eid;
 	}
 
-	public String getType() {
-		return this.type;
+	public int getAddClient() {
+		return this.addClient;
 	}
 
-	public void setType(String type) {
-		this.type = type;
+	public void setAddClient(int addClient) {
+		this.addClient = addClient;
 	}
 
-	public List<Group> getGroups() {
-		return this.groups;
+	public int getAddDepartment() {
+		return this.addDepartment;
 	}
 
-	public void setGroups(List<Group> groups) {
-		this.groups = groups;
+	public void setAddDepartment(int addDepartment) {
+		this.addDepartment = addDepartment;
 	}
 
-	public List<GroupPermission> getGroupPermissions() {
-		return this.groupPermissions;
+	public int getAddEmployee() {
+		return this.addEmployee;
 	}
 
-	public void setGroupPermissions(List<GroupPermission> groupPermissions) {
-		this.groupPermissions = groupPermissions;
+	public void setAddEmployee(int addEmployee) {
+		this.addEmployee = addEmployee;
 	}
 
-	public GroupPermission addGroupPermission(GroupPermission groupPermission) {
-		getGroupPermissions().add(groupPermission);
-		groupPermission.setPermission(this);
-
-		return groupPermission;
+	public int getAddProject() {
+		return this.addProject;
 	}
 
-	public GroupPermission removeGroupPermission(GroupPermission groupPermission) {
-		getGroupPermissions().remove(groupPermission);
-		groupPermission.setPermission(null);
+	public void setAddProject(int addProject) {
+		this.addProject = addProject;
+	}
 
-		return groupPermission;
+	public int getDeleteUser() {
+		return this.deleteUser;
+	}
+
+	public void setDeleteUser(int deleteUser) {
+		this.deleteUser = deleteUser;
+	}
+
+	public int getEditClient() {
+		return this.editClient;
+	}
+
+	public void setEditClient(int editClient) {
+		this.editClient = editClient;
+	}
+
+	public int getEditDepartment() {
+		return this.editDepartment;
+	}
+
+	public void setEditDepartment(int editDepartment) {
+		this.editDepartment = editDepartment;
+	}
+
+	public int getEditEmployee() {
+		return this.editEmployee;
+	}
+
+	public void setEditEmployee(int editEmployee) {
+		this.editEmployee = editEmployee;
+	}
+
+	public int getEditOtherEmployee() {
+		return this.editOtherEmployee;
+	}
+
+	public void setEditOtherEmployee(int editOtherEmployee) {
+		this.editOtherEmployee = editOtherEmployee;
+	}
+
+	public int getEditProject() {
+		return this.editProject;
+	}
+
+	public void setEditProject(int editProject) {
+		this.editProject = editProject;
+	}
+
+	public User getUser() {
+		return this.user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
 	}
 
 }

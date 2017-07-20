@@ -26,4 +26,10 @@ public class EmployeeServiceImpl implements EmployeeService {
 		return employeeRepository.findByLeavingDateBetween(startDate, endDate);
 	}
 
+	@Override
+	public Employee getEmployeeByFirstName(String firstName) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }
