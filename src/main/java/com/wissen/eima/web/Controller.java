@@ -15,8 +15,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.wissen.eima.model.employee.Employee;
-import com.wissen.eima.service.report.EmployeesReport;
-import com.wissen.eima.service.report.EmployeesReportGeneratorService;
+import com.wissen.eima.service.EmployeeService;
+import com.wissen.eima.service.impl.EmployeeServiceImpl;
 
 class Request {
 
@@ -46,7 +46,7 @@ class Request {
 public class Controller {
 
 	@Autowired
-	EmployeesReportGeneratorService employeesReportGeneratorService;
+	EmployeeServiceImpl employeesReportGeneratorService;
 
 	@RequestMapping(method = RequestMethod.POST)
 	@ResponseBody
@@ -66,7 +66,7 @@ public class Controller {
 			e.printStackTrace();
 		}
 
-		List<Employee> reportForEmployeesHired = employeesReportGeneratorService.getReportForEmployeesHired(sDate,
+		List<Employee> reportForEmployeesHired = employeesReportGeneratorService.getEmployeesHired(sDate,
 				eDate);
 
 		System.out.println("\n" + reportForEmployeesHired + "\n");
