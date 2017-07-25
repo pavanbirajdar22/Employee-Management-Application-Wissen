@@ -16,6 +16,8 @@ import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import org.springframework.data.rest.core.annotation.RestResource;
+
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.wissen.eima.model.EmployeeProject;
 import com.wissen.eima.model.client.Client;
@@ -59,12 +61,14 @@ public class Project implements Serializable {
 	@JsonIgnoreProperties({ "employees", "projects", "clientEmployees" })
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "cid")
+	@RestResource(exported = false)
 	private Client client;
 
 	// bi-directional many-to-one association to Department
 	@JsonIgnoreProperties({ "employees", "projects" })
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "dept_id")
+	@RestResource(exported = false)
 	private Department department;
 
 	public Project() {
