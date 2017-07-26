@@ -3,7 +3,7 @@ Implementation-Title: EIMA
 Implementation-Version: 0.0.1-SNAPSHOT
 Built-By: Nexwave
 Implementation-Vendor-Id: com.wissen.eima
-Build-Jdk: 1.8.0_131
+Build-Jdk: 1.8.0_91
 Implementation-URL: http://projects.spring.io/spring-boot/EIMA/
 Created-By: Maven Integration for Eclipse
 Implementation-Vendor: Pivotal Software, Inc.
