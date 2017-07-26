@@ -12,9 +12,9 @@ import com.wissen.eima.service.impl.DepartmentServiceImpl;
 @RequestMapping("/department")
 public class DepartmentController {
 
-	@Autowired 
+	@Autowired
 	DepartmentServiceImpl departmentServiceImpl;
-	
+
 	@RequestMapping("/departmentByName")
 	public Department getDepartmentByName(@RequestParam("name") String name) {
 		return departmentServiceImpl.getDepartmentByName(name);

@@ -6,6 +6,7 @@ import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -17,6 +18,7 @@ import com.wissen.eima.service.impl.EmployeeServiceImpl;
 
 @RestController
 @RequestMapping(value = "/employee")
+@CrossOrigin(origins = "*")
 public class EmployeeController {
 
 	@Autowired
@@ -30,7 +32,7 @@ public class EmployeeController {
 
 		System.out.println("\nstartDate = " + fromDate + "\n");
 
-		SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
 
 		Date sDate = null, eDate = null;
 		try {
@@ -55,7 +57,7 @@ public class EmployeeController {
 
 		System.out.println("\nstartDate = " + fromDate + "\n");
 
-		SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
 
 		Date sDate = null, eDate = null;
 		try {

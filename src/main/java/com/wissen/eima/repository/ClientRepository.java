@@ -8,11 +8,11 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 
 import com.wissen.eima.model.client.Client;
 
-@CrossOrigin(origins="*")
+@CrossOrigin(origins = "*")
 public interface ClientRepository extends JpaRepository<Client, Integer> {
 	Client findByCid(final int cid);
 
-	Client findByNameContains(@Param(value="name")final String name);
+	Client findByNameContains(@Param(value = "name") final String name);
 
 	List<Client> findByLocation(final String location);
 }

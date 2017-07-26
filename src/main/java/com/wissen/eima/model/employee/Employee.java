@@ -62,6 +62,8 @@ public class Employee implements Serializable {
 
 	private double salary;
 
+	private Date dob;
+
 	// bi-directional many-to-one association to Address
 	@JsonIgnoreProperties(value = "employee")
 	@OneToMany(mappedBy = "employee")
@@ -352,4 +354,11 @@ public class Employee implements Serializable {
 		this.user = user;
 	}
 
+	public Date getDob() {
+		return dob;
+	}
+
+	public void setDob(Date dob) {
+		this.dob = dob;
+	}
 }

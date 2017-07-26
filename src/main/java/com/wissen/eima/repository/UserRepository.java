@@ -8,8 +8,7 @@ import com.wissen.eima.model.employee.User;
 @CrossOrigin(origins = "*")
 public interface UserRepository extends JpaRepository<User, Integer> {
 	User findUserByEid(int eid);
-	
+
 	User findUserByEmailId(String email);
-	
-	
+
 }

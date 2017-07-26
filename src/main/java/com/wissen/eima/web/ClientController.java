@@ -13,7 +13,7 @@ import com.wissen.eima.model.client.Client;
 import com.wissen.eima.service.impl.ClientServiceImpl;
 
 @RestController
-@RequestMapping("/department")
+@RequestMapping("/client")
 public class ClientController {
 
 	@Autowired

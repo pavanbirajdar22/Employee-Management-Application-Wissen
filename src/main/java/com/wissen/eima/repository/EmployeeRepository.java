@@ -13,9 +13,13 @@ import com.wissen.eima.model.employee.Employee;
 public interface EmployeeRepository extends JpaRepository<Employee, Integer> {
 
 	Employee findByFirstNameContains(@Param("firstName") final String firstName);
+
 	Employee findByLastNameContains(@Param("lastName") final String lastName);
+
 	Employee findByEid(@Param("eid") int eid);
+
 	List<Employee> findByJoiningDateBetween(final Date startDate, final Date endDate);
+
 	List<Employee> findByLeavingDateBetween(final Date startDate, final Date endDate);
 
 }
