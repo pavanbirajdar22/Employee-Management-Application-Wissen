@@ -51,6 +51,17 @@ public class Permission implements Serializable {
 
 	@Column(name = "edit_project")
 	private int editProject;
+	
+	@Column(name = "generate_report")
+	private int generateReport;
+
+	public int getGenerateReport() {
+		return generateReport;
+	}
+
+	public void setGenerateReport(int generateReport) {
+		this.generateReport = generateReport;
+	}
 
 	// bi-directional one-to-one association to User
 	@JsonIgnoreProperties("permission")

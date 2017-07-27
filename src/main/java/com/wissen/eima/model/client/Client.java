@@ -3,6 +3,7 @@ package com.wissen.eima.model.client;
 import java.io.Serializable;
 import java.util.List;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
@@ -28,6 +29,8 @@ public class Client implements Serializable {
 
 	private String name;
 
+	private String description;
+	
 	// bi-directional many-to-many association to Employee
 	@JsonIgnoreProperties({ "addresses", "staff", "manager", "projects", "clients", "employeeClients",
 			"employeeProjects", "department", "histories", "user" })
@@ -123,4 +126,12 @@ public class Client implements Serializable {
 		return project;
 	}
 
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
+	
 }

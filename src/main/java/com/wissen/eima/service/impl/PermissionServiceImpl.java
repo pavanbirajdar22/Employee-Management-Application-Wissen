@@ -27,6 +27,9 @@ public class PermissionServiceImpl implements PermissionService {
 		permission.setEditOtherEmployee(permissionRequest.getEditOtherEmployee());
 		permission.setDeleteUser(permissionRequest.getDeleteUser());
 		permission.setEditEmployee(permissionRequest.getEditEmployee());
+		permission.setAddProject(permissionRequest.getAddProject());
+		permission.setEditProject(permissionRequest.getEditProject());
+		permission.setGenerateReport(permissionRequest.getGenerateReport());
 		permissionRepository.saveAndFlush(permission);
 		return true;
 	}

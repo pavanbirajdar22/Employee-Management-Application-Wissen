@@ -4,9 +4,12 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
@@ -34,6 +37,7 @@ public class Employee implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int eid;
 
 	private String designation;
@@ -66,7 +70,7 @@ public class Employee implements Serializable {
 
 	// bi-directional many-to-one association to Address
 	@JsonIgnoreProperties(value = "employee")
-	@OneToMany(mappedBy = "employee")
+	@OneToMany(mappedBy = "employee",cascade=CascadeType.ALL)
 	private List<Address> addresses;
 
 	// bi-directional many-to-many association to Client
@@ -82,7 +86,7 @@ public class Employee implements Serializable {
 	@JoinColumn(name = "dept_id")
 	private Department department;
 
-	// bi-directional many-to-one association to Employeel
+	// bi-directional many-to-one association to Employee
 
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "mgr_eid")
@@ -103,12 +107,12 @@ public class Employee implements Serializable {
 
 	// bi-directional many-to-one association to Employee_Client
 	@JsonIgnoreProperties({ "employee", "client" })
-	@OneToMany(mappedBy = "employee")
+	@OneToMany(mappedBy = "employee",cascade=CascadeType.ALL)
 	private List<EmployeeClient> employeeClients;
 
 	// bi-directional many-to-one association to Employee_Project
 	@JsonIgnoreProperties({ "employee", "project" })
-	@OneToMany(mappedBy = "employee")
+	@OneToMany(mappedBy = "employee",cascade=CascadeType.ALL)
 	private List<EmployeeProject> employeeProjects;
 
 	// bi-directional many-to-one association to History
@@ -118,7 +122,7 @@ public class Employee implements Serializable {
 
 	// bi-directional one-to-one association to User
 	@JsonIgnoreProperties({ "employee", "group" })
-	@OneToOne(mappedBy = "employee", fetch = FetchType.EAGER)
+	@OneToOne(mappedBy = "employee", fetch = FetchType.EAGER,cascade=CascadeType.ALL)
 	private User user;
 
 	public Employee() {

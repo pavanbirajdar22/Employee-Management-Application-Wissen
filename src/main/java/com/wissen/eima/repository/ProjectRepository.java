@@ -11,6 +11,8 @@ import com.wissen.eima.model.project.Project;
 
 @CrossOrigin(origins = "*")
 public interface ProjectRepository extends JpaRepository<Project, Integer> {
+	Project findByPid(final int pid);
+	
 	public List<Project> findByStartDateBetween(final Date fromDate, final Date toDate);
 
 	public List<Project> findByEndDateBetween(final Date startDate, final Date endDate);

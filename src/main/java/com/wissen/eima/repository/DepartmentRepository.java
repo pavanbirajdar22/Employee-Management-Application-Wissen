@@ -8,5 +8,6 @@ import com.wissen.eima.model.department.Department;
 
 @CrossOrigin(origins = "*")
 public interface DepartmentRepository extends JpaRepository<Department, Integer> {
+	Department findByDeptId(final int deptId);
 	Department findByDeptNameContains(@Param(value = "deptName") final String name);
 }

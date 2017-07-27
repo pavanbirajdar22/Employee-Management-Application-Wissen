@@ -5,6 +5,8 @@ import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
@@ -21,11 +23,14 @@ public class Department implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name = "dept_id")
 	private int deptId;
 
 	@Column(name = "dept_name")
 	private String deptName;
+	
+	private String description;
 
 	// bi-directional many-to-one association to Employee
 	@JsonIgnoreProperties({ "addresses", "staff", "manager", "projects", "clients", "employeeClients",
@@ -99,6 +104,14 @@ public class Department implements Serializable {
 		project.setDepartment(null);
 
 		return project;
+	}
+	
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
 	}
 
 }

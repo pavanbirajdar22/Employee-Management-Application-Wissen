@@ -40,6 +40,10 @@ public class User implements Serializable {
 	@Column(name = "gender_visible")
 	private int genderVisible;
 
+	@Column(name = "phone_visible")
+	private int phoneVisible;
+	
+
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "last_login")
 	private Date lastLogin;
@@ -132,5 +136,12 @@ public class User implements Serializable {
 	public void setEmployee(Employee employee) {
 		this.employee = employee;
 	}
+	
+	public int getPhoneVisible() {
+		return phoneVisible;
+	}
 
+	public void setPhoneVisible(int phoneVisible) {
+		this.phoneVisible = phoneVisible;
+	}
 }

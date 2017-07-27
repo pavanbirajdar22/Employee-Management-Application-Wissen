@@ -7,6 +7,8 @@ import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
@@ -34,6 +36,7 @@ public class Project implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int pid;
 
 	@Temporal(TemporalType.TIMESTAMP)
@@ -45,6 +48,8 @@ public class Project implements Serializable {
 	private Date startDate;
 
 	private String title;
+	
+	private String description;
 
 	// bi-directional many-to-many association to Employee
 	@JsonIgnoreProperties({ "addresses", "staff", "manager", "projects", "clients", "employeeClients",
@@ -150,6 +155,14 @@ public class Project implements Serializable {
 
 	public void setDepartment(Department department) {
 		this.department = department;
+	}
+
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
 	}
 
 }
