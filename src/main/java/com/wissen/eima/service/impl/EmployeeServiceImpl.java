@@ -26,13 +26,13 @@ public class EmployeeServiceImpl implements EmployeeService {
 
 	@Autowired
 	EmployeeRepository employeeRepository;
-	
+
 	@Autowired
 	ProjectRepository projectRepository;
-	
+
 	@Autowired
 	ClientRepository clientRepository;
-	
+
 	@Autowired
 	DepartmentRepository departmentRepository;
 
@@ -51,13 +51,14 @@ public class EmployeeServiceImpl implements EmployeeService {
 		return null;
 	}
 
-	
 	@Override
 	public int createEmployee(EmployeeReq empReq) {
-		
+
 		Employee emp = new Employee();
 		Department department = departmentRepository.findByDeptId(empReq.getDeptId());
 		emp.setDepartment(department);
+		// Employee mgr = employeeRepository.findByEid(empReq.getMgrId());
+		// emp.setManager(mgr);
 
 		emp.setFirstName(empReq.getFirstName());
 		emp.setMiddleName(empReq.getMiddleName());
@@ -72,21 +73,20 @@ public class EmployeeServiceImpl implements EmployeeService {
 		emp.setDob(empReq.getDob());
 		emp.setJoiningDate(empReq.getJoiningDate());
 		emp.setLeavingDate(empReq.getLeavingDate());
-		
+
 		Employee empNew = employeeRepository.saveAndFlush(emp);
-		
+
 		employeeRepository.insertIntoEmployeeClient(empNew.getEid(), empReq.getCid());
 		employeeRepository.insertIntoEmployeeProject(empNew.getEid(), empReq.getPid());
-		employeeRepository.insertIntoAddress(empReq.getAddress().getType(), empReq.getAddress().getLine1(), 
-				empReq.getAddress().getLine2(), empReq.getAddress().getCity(), empReq.getAddress().getState(), 
+		employeeRepository.insertIntoAddress(empReq.getAddress().getType(), empReq.getAddress().getLine1(),
+				empReq.getAddress().getLine2(), empReq.getAddress().getCity(), empReq.getAddress().getState(),
 				empReq.getAddress().getCountry(), empReq.getAddress().getPincode(), empNew.getEid());
-		
-		
-		String pass = empReq.getFirstName()+"@"+empReq.getLastName();
-		
+
+		String pass = empReq.getFirstName() + "@" + empReq.getLastName();
+
 		employeeRepository.insertIntoUser(empNew.getEid(), empReq.getEmailId(), pass);
-		
-		return empNew.getEid(); 
+
+		return empNew.getEid();
 	}
 
 }
