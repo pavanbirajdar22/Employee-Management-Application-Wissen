@@ -1,7 +1,9 @@
 package com.wissen.eima.model;
 
 import java.io.Serializable;
-import javax.persistence.*;
+
+import javax.persistence.Column;
+import javax.persistence.Embeddable;
 
 /**
  * The primary key class for the Employee_Client database table.
@@ -9,7 +11,7 @@ import javax.persistence.*;
  */
 @Embeddable
 public class EmployeeClientPK implements Serializable {
-	//default serial version id, required for serializable classes.
+	// default serial version id, required for serializable classes.
 	private static final long serialVersionUID = 1L;
 
 	@Column(insertable = false, updatable = false)
@@ -20,15 +22,19 @@ public class EmployeeClientPK implements Serializable {
 
 	public EmployeeClientPK() {
 	}
+
 	public int getCid() {
 		return this.cid;
 	}
+
 	public void setCid(int cid) {
 		this.cid = cid;
 	}
+
 	public int getEid() {
 		return this.eid;
 	}
+
 	public void setEid(int eid) {
 		this.eid = eid;
 	}
@@ -40,10 +46,8 @@ public class EmployeeClientPK implements Serializable {
 		if (!(other instanceof EmployeeClientPK)) {
 			return false;
 		}
-		EmployeeClientPK castOther = (EmployeeClientPK)other;
-		return 
-			(this.cid == castOther.cid)
-			&& (this.eid == castOther.eid);
+		EmployeeClientPK castOther = (EmployeeClientPK) other;
+		return (this.cid == castOther.cid) && (this.eid == castOther.eid);
 	}
 
 	public int hashCode() {
@@ -51,7 +55,7 @@ public class EmployeeClientPK implements Serializable {
 		int hash = 17;
 		hash = hash * prime + this.cid;
 		hash = hash * prime + this.eid;
-		
+
 		return hash;
 	}
 }

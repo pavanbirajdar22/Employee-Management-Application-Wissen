@@ -1,20 +1,29 @@
 package com.wissen.eima.model.employee;
 
 import java.io.Serializable;
-import javax.persistence.*;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.NamedQuery;
 
 /**
  * The persistent class for the Address database table.
  * 
  */
 @Entity
-@NamedQuery(name="Address.findAll", query="SELECT a FROM Address a")
+@NamedQuery(name = "Address.findAll", query = "SELECT a FROM Address a")
 public class Address implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@Column(name="address_id")
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@Column(name = "address_id")
 	private int addressId;
 
 	private String city;
@@ -31,9 +40,9 @@ public class Address implements Serializable {
 
 	private int type;
 
-	//bi-directional many-to-one association to Employee
-	@ManyToOne(fetch=FetchType.EAGER)
-	@JoinColumn(name="eid")
+	// bi-directional many-to-one association to Employee
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "eid")
 	private Employee employee;
 
 	public Address() {

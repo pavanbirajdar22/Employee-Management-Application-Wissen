@@ -1,13 +1,18 @@
 package com.wissen.eima.model.department;
 
 import java.io.Serializable;
-import javax.persistence.*;
-
-import com.wissen.eima.model.employee.Employee;
-import com.wissen.eima.model.project.Project;
-
 import java.util.List;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.wissen.eima.model.employee.Employee;
+import com.wissen.eima.model.project.Project;
 
 /**
  * The persistent class for the Department database table.
@@ -18,18 +23,24 @@ public class Department implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@Column(name="dept_id")
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@Column(name = "dept_id")
 	private int deptId;
 
-	@Column(name="dept_name")
+	@Column(name = "dept_name")
 	private String deptName;
+	
+	private String description;
 
-	//bi-directional many-to-one association to Employee
-	@OneToMany(mappedBy="department")
+	// bi-directional many-to-one association to Employee
+	@JsonIgnoreProperties({ "addresses", "staff", "manager", "projects", "clients", "employeeClients",
+			"employeeProjects", "department", "histories", "user" })
+	@OneToMany(mappedBy = "department")
 	private List<Employee> employees;
 
-	//bi-directional many-to-one association to Project
-	@OneToMany(mappedBy="department")
+	// bi-directional many-to-one association to Project
+	@JsonIgnoreProperties({ "team", "employeeProjects", "client", "department" })
+	@OneToMany(mappedBy = "department")
 	private List<Project> projects;
 
 	public Department() {
@@ -93,6 +104,14 @@ public class Department implements Serializable {
 		project.setDepartment(null);
 
 		return project;
+	}
+	
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
 	}
 
 }

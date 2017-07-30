@@ -1,22 +1,32 @@
 package com.wissen.eima.model.employee;
 
 import java.io.Serializable;
-import javax.persistence.*;
+import java.util.Date;
+import java.util.List;
 
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
-import com.fasterxml.jackson.annotation.ObjectIdGenerator;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import com.wissen.eima.model.EmployeeClient;
 import com.wissen.eima.model.EmployeeProject;
 import com.wissen.eima.model.client.Client;
 import com.wissen.eima.model.department.Department;
 import com.wissen.eima.model.project.Project;
-
-import java.util.Date;
-import java.util.List;
 
 /**
  * The persistent class for the Employee database table.
@@ -27,6 +37,7 @@ public class Employee implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int eid;
 
 	private String designation;
@@ -55,25 +66,27 @@ public class Employee implements Serializable {
 
 	private double salary;
 
+	private Date dob;
+
 	// bi-directional many-to-one association to Address
-	@JsonIgnoreProperties(value="employee")
-	@OneToMany(mappedBy = "employee")
+	@JsonIgnoreProperties(value = "employee")
+	@OneToMany(mappedBy = "employee",cascade=CascadeType.ALL)
 	private List<Address> addresses;
 
 	// bi-directional many-to-many association to Client
-	@JsonIgnoreProperties({"employees","projects","clientEmployees"})
+	@JsonIgnoreProperties({ "employees", "projects", "clientEmployees" })
 	@ManyToMany
 	@JoinTable(name = "Employee_Client", joinColumns = { @JoinColumn(name = "eid") }, inverseJoinColumns = {
 			@JoinColumn(name = "cid") })
 	private List<Client> clients;
 
 	// bi-directional many-to-one association to Department
-	@JsonIgnoreProperties({"employees","projects"})
+	@JsonIgnoreProperties({ "employees", "projects" })
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "dept_id")
 	private Department department;
 
-	// bi-directional many-to-one association to Employeel
+	// bi-directional many-to-one association to Employee
 
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "mgr_eid")
@@ -86,30 +99,30 @@ public class Employee implements Serializable {
 	private List<Employee> staff;
 
 	// bi-directional many-to-many association to Project
-	@JsonIgnoreProperties({"team","employeeProjects","client","department"})
+	@JsonIgnoreProperties({ "team", "employeeProjects", "client", "department" })
 	@ManyToMany
 	@JoinTable(name = "Employee_Project", joinColumns = { @JoinColumn(name = "eid") }, inverseJoinColumns = {
 			@JoinColumn(name = "pid") })
 	private List<Project> projects;
 
 	// bi-directional many-to-one association to Employee_Client
-	@JsonIgnoreProperties({"employee","client"})
-	@OneToMany(mappedBy = "employee")
+	@JsonIgnoreProperties({ "employee", "client" })
+	@OneToMany(mappedBy = "employee",cascade=CascadeType.ALL)
 	private List<EmployeeClient> employeeClients;
 
 	// bi-directional many-to-one association to Employee_Project
-	@JsonIgnoreProperties({"employee","project"})
-	@OneToMany(mappedBy = "employee")
+	@JsonIgnoreProperties({ "employee", "project" })
+	@OneToMany(mappedBy = "employee",cascade=CascadeType.ALL)
 	private List<EmployeeProject> employeeProjects;
 
 	// bi-directional many-to-one association to History
-	@JsonIgnoreProperties(value="employee")
+	@JsonIgnoreProperties(value = "employee")
 	@OneToMany(mappedBy = "employee")
 	private List<History> histories;
 
 	// bi-directional one-to-one association to User
-	@JsonIgnoreProperties({"employee","group"})
-	@OneToOne(mappedBy = "employee", fetch = FetchType.EAGER)
+	@JsonIgnoreProperties({ "employee", "group" })
+	@OneToOne(mappedBy = "employee", fetch = FetchType.EAGER,cascade=CascadeType.ALL)
 	private User user;
 
 	public Employee() {
@@ -345,4 +358,11 @@ public class Employee implements Serializable {
 		this.user = user;
 	}
 
+	public Date getDob() {
+		return dob;
+	}
+
+	public void setDob(Date dob) {
+		this.dob = dob;
+	}
 }

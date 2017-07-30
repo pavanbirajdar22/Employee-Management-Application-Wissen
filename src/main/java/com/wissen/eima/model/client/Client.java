@@ -1,14 +1,18 @@
 package com.wissen.eima.model.client;
 
 import java.io.Serializable;
-import javax.persistence.*;
+import java.util.List;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.wissen.eima.model.EmployeeClient;
 import com.wissen.eima.model.employee.Employee;
 import com.wissen.eima.model.project.Project;
-
-import java.util.List;
-
 
 /**
  * The persistent class for the Client database table.
@@ -25,16 +29,22 @@ public class Client implements Serializable {
 
 	private String name;
 
-	//bi-directional many-to-many association to Employee
-	@ManyToMany(mappedBy="clients")
+	private String description;
+	
+	// bi-directional many-to-many association to Employee
+	@JsonIgnoreProperties({ "addresses", "staff", "manager", "projects", "clients", "employeeClients",
+			"employeeProjects", "department", "histories", "user" })
+	@ManyToMany(mappedBy = "clients")
 	private List<Employee> employees;
 
-	//bi-directional many-to-one association to Employee_Client
-	@OneToMany(mappedBy="client")
+	// bi-directional many-to-one association to Employee_Client
+	@JsonIgnoreProperties({ "client", "employee" })
+	@OneToMany(mappedBy = "client")
 	private List<EmployeeClient> clientEmployees;
 
-	//bi-directional many-to-one association to Project
-	@OneToMany(mappedBy="client")
+	// bi-directional many-to-one association to Project
+	@JsonIgnoreProperties({ "team", "employeeProjects", "client", "department" })
+	@OneToMany(mappedBy = "client")
 	private List<Project> projects;
 
 	public Client() {
@@ -116,4 +126,12 @@ public class Client implements Serializable {
 		return project;
 	}
 
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
+	
 }

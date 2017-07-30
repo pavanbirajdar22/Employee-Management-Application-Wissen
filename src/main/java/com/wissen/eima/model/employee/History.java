@@ -1,38 +1,48 @@
 package com.wissen.eima.model.employee;
 
 import java.io.Serializable;
-import javax.persistence.*;
-
 import java.util.Date;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.NamedQuery;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 /**
  * The persistent class for the History database table.
  * 
  */
 @Entity
-@NamedQuery(name="History.findAll", query="SELECT h FROM History h")
+@NamedQuery(name = "History.findAll", query = "SELECT h FROM History h")
 public class History implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int hid;
 
-	@Column(name="field_changed")
+	@Column(name = "field_changed")
 	private String fieldChanged;
 
-	@Column(name="new_val")
+	@Column(name = "new_val")
 	private String newVal;
 
-	@Column(name="old_val")
+	@Column(name = "old_val")
 	private String oldVal;
 
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date timestamp;
 
-	//bi-directional many-to-one association to Employee
-	@ManyToOne(fetch=FetchType.EAGER)
-	@JoinColumn(name="eid")
+	// bi-directional many-to-one association to Employee
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "eid")
 	private Employee employee;
 
 	public History() {
